@@ -1,0 +1,135 @@
+<title>Home</title>
+
+<div class="min-h-screen bg-[#F9FAFB]">
+  <!-- Header Section -->
+  <section class="bg-gradient-to-r from-[#1E88E5] to-[#1976D2] text-white py-16 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Adorable Pawls</h1>
+      <p class="text-xl text-gray-100">
+        Meet our rescued dogs waiting for their forever homes
+      </p>
+    </div>
+  </section>
+
+  <!-- Important Notice -->
+  <section class="bg-white py-8 px-4 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="bg-[#90CAF9] bg-opacity-20 border-l-4 border-[#1E88E5] p-6 rounded-r-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <i class="fas fa-info-circle text-2xl text-[#1E88E5]"></i>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-lg font-semibold text-[#1A1A1A] mb-2">Adoption Process</h3>
+            <p class="text-gray-700 leading-relaxed">
+              All applicants are required to fill out an adoption application form. This is the first step in the process. 
+              If approved, you will be invited to visit our facility to meet the dogs in person and spend time with your chosen pet.
+              Our team will guide you through each step to ensure a successful match.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters Section -->
+  <section class="bg-white py-6 px-4 sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="flex-1">
+          <input type="text" 
+                 [(ngModel)]="searchTerm"
+                 (ngModelChange)="applyFilters()"
+                 placeholder="Search by name or breed..."
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1E88E5] focus:outline-none">
+        </div>
+        
+        <select [(ngModel)]="selectedSize" 
+                (ngModelChange)="applyFilters()"
+                class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1E88E5] focus:outline-none">
+          <option value="">All Sizes</option>
+          <option value="SMALL">Small</option>
+          <option value="MEDIUM">Medium</option>
+          <option value="LARGE">Large</option>
+          <option value="EXTRA_LARGE">Extra Large</option>
+        </select>
+
+        <select [(ngModel)]="selectedGender" 
+                (ngModelChange)="applyFilters()"
+                class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1E88E5] focus:outline-none">
+          <option value="">All Genders</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+
+        <button (click)="clearFilters()"
+                class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200 whitespace-nowrap">
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dogs Grid -->
+  <section class="py-12 px-4">
+    <div class="max-w-7xl mx-auto">
+      @if (isLoading) {
+        <div class="flex justify-center items-center py-20">
+          <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#1E88E5]"></div>
+        </div>
+      } @else if (filteredDogs.length > 0) {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          @for (dog of filteredDogs; track dog.dogId) {
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 cursor-pointer"
+                 (click)="viewDog(dog.dogId)">
+              <div class="relative h-56 overflow-hidden">
+                <img [src]="dog.imageUrl" 
+                     [alt]="dog.name" 
+                     class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500">
+                <div class="absolute top-3 right-3 flex gap-2">
+                  @if (dog.vaccinated) {
+                    <span class="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                      <i class="fas fa-syringe"></i> Vaccinated
+                    </span>
+                  }
+                  @if (dog.spayedNeutered) {
+                    <span class="bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                      Neutered
+                    </span>
+                  }
+                </div>
+              </div>
+              
+              <div class="p-5">
+                <h3 class="text-xl font-bold text-[#1A1A1A] mb-2">{{ dog.name }}</h3>
+                <div class="space-y-1 text-sm text-gray-600 mb-3">
+                  <p><i class="fas fa-paw text-[#1E88E5] w-5"></i> {{ dog.breed }}</p>
+                  <p><i class="fas fa-birthday-cake text-[#1E88E5] w-5"></i> {{ dog.age }} {{ dog.age === 1 ? 'year' : 'years' }} old</p>
+                  <p><i class="fas fa-venus-mars text-[#1E88E5] w-5"></i> {{ dog.gender }}</p>
+                  <p><i class="fas fa-ruler text-[#1E88E5] w-5"></i> {{ dog.size }}</p>
+                </div>
+                <button class="w-full bg-[#FFB74D] text-white py-2 rounded-lg font-semibold hover:bg-[#FFA726] transition-colors duration-200">
+                  View Details
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="mt-8 text-center text-gray-600">
+          Showing {{ filteredDogs.length }} of {{ dogs.length }} dogs
+        </div>
+      } @else {
+        <div class="text-center py-20">
+          <i class="fas fa-search text-6xl text-gray-400 mb-4"></i>
+          <h3 class="text-2xl font-bold text-gray-700 mb-2">No Dogs Found</h3>
+          <p class="text-gray-600 mb-6">Try adjusting your filters to see more results</p>
+          <button (click)="clearFilters()"
+                  class="bg-[#1E88E5] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#1976D2] transition-colors duration-200">
+            Clear All Filters
+          </button>
+        </div>
+      }
+    </div>
+  </section>
+</div>

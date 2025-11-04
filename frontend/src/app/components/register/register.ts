@@ -38,6 +38,7 @@ export class RegisterComponent {
   get f() {
     return this.registerForm.controls;
   }
+  
 
   showPassword: boolean = false;
 

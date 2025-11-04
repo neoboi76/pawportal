@@ -1,16 +1,44 @@
+// app.routes.ts (COMPLETE WITH ADMIN ROUTES)
 import { Routes } from '@angular/router';
 import { AuthGuard } from './services/auth-guard';
 import { LoginComponent } from './components/login/login';
 import { RegisterComponent } from './components/register/register';
 import { ResetPasswordComponent } from './components/reset-password/reset-password';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password';
+import { HomeComponent } from './components/home.component/home.component';
+import { OurPawlsComponent } from './components/our-pawls.component/our-pawls.component';
+import { DogDetailComponent } from './components/dog-detail.component/dog-detail.component';
+import { AboutComponent } from './components/about.component/about.component';
+import { ContactComponent } from './components/contact.component/contact.component';
+import { SettingsComponent } from './components/settings.component/settings.component';
+import { AdminGuard } from './services/admin.guard';
+import { AdminDashboardComponent } from './components/admin-dashboard.component/admin-dashboard.component';
+import { AdminDogsComponent } from './components/admin-dogs.component/admin-dogs.component';
+import { AdminApplicationsComponent } from './components/admin-applications.component/admin-applications.component';
 
 export const routes: Routes = [
-     { path: '', redirectTo: '/login', pathMatch: 'full'}, 
-    { path: 'login', component: LoginComponent},
-    { path: 'register', component: RegisterComponent },
-    //{ path: 'home', component: HomeComponent, canActivate: [AuthGuard]}, 
-    { path: 'reset-password', component: ResetPasswordComponent},
-    { path: 'forgot-password', component: ForgotPasswordComponent}
-   // { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+
+  { path: '', redirectTo: '/home', pathMatch: 'full'}, 
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent },
+  { path: 'reset-password', component: ResetPasswordComponent},
+  { path: 'forgot-password', component: ForgotPasswordComponent},
+  { path: 'home', component: HomeComponent}, 
+  { path: 'our-pawls', component: OurPawlsComponent},
+  { path: 'our-pawls/:id', component: DogDetailComponent, canActivate: [AuthGuard]},
+  { path: 'about', component: AboutComponent},
+  { path: 'contact', component: ContactComponent},
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+  
+  { 
+    path: 'admin', 
+    canActivate: [AdminGuard],
+    children: [
+      { path: '', component: AdminDashboardComponent },
+      { path: 'dogs', component: AdminDogsComponent },
+      { path: 'applications', component: AdminApplicationsComponent }
+    ]
+  },
+  
+  { path: '**', redirectTo: '/home' }
 ];

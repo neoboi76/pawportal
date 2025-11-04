@@ -6,19 +6,22 @@ import { TokenStorageService } from '../../services/token-storage-service';
 import { LoginModel } from '../../models/login-model';
 import { AuthService } from '../../services/auth-service';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgClass],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgClass, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  forgotPasswordForm!: FormGroup;
   submitted = false;
   errorMessage = '';
   successMessage = '';
+  showForgotPasswordModal = false;
+  isRequestingReset = false;
+  forgotPasswordMessage = '';
 
   constructor(
     private tokenStorageService: TokenStorageService,
@@ -40,15 +43,21 @@ export class LoginComponent {
     }
 
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required,
-        Validators.minLength(6)]],
-      password: ['', [Validators.required,
-        Validators.minLength(6)]],
-    })
+      email: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+
+    this.forgotPasswordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
   get f() {
     return this.loginForm.controls;
+  }
+
+  get fp() {
+    return this.forgotPasswordForm.controls;
   }
 
   onSubmit(): void {
@@ -72,6 +81,42 @@ export class LoginComponent {
         this.errorMessage = 'Invalid username or password.';
       }
     });
+  }
 
+  openForgotPasswordModal(event: Event): void {
+    event.preventDefault();
+    this.showForgotPasswordModal = true;
+    this.forgotPasswordMessage = '';
+    this.forgotPasswordForm.reset();
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeForgotPasswordModal(): void {
+    this.showForgotPasswordModal = false;
+    document.body.style.overflow = 'auto';
+  }
+
+  submitForgotPassword(): void {
+    if (this.forgotPasswordForm.invalid) return;
+
+    this.isRequestingReset = true;
+    this.forgotPasswordMessage = '';
+    const email = this.forgotPasswordForm.value.email;
+
+    this.authService.requestForgotPassword(email).subscribe({
+      next: (response) => {
+        this.isRequestingReset = false;
+        this.forgotPasswordMessage = 'Password reset link has been sent to your email. Please check your inbox and follow the instructions.';
+        
+        setTimeout(() => {
+          this.closeForgotPasswordModal();
+        }, 3000);
+      },
+      error: (err) => {
+        console.error('Error requesting password reset:', err);
+        this.isRequestingReset = false;
+        this.forgotPasswordMessage = 'Failed to send reset email. Please try again or contact support.';
+      }
+    });
   }
 }

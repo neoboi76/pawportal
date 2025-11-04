@@ -1,0 +1,184 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DogService } from '../../services/dog.service';
+import { Dog } from '../../models/dog.model';
+
+@Component({
+  selector: 'app-admin-dogs',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  templateUrl: './admin-dogs.component.html',
+  styleUrl: './admin-dogs.component.css'
+})
+export class AdminDogsComponent implements OnInit {
+  dogs: Dog[] = [];
+  filteredDogs: Dog[] = [];
+  isLoading = true;
+  showModal = false;
+  isEditMode = false;
+  dogForm!: FormGroup;
+  selectedDog: Dog | null = null;
+  searchTerm = '';
+  filterStatus = '';
+  successMessage = '';
+  errorMessage = '';
+  showDeleteConfirm = false;
+  dogToDelete: Dog | null = null;
+
+  constructor(
+    private dogService: DogService,
+    private fb: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.initForm();
+    this.loadDogs();
+  }
+
+  initForm(): void {
+    this.dogForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      breed: ['', [Validators.required]],
+      age: [1, [Validators.required, Validators.min(0), Validators.max(20)]],
+      size: ['MEDIUM', [Validators.required]],
+      gender: ['Male', [Validators.required]],
+      description: ['', [Validators.required, Validators.minLength(20)]],
+      temperament: [''],
+      imageUrl: ['', [Validators.required]],
+      vaccinated: [true],
+      spayedNeutered: [true],
+      status: ['AVAILABLE', [Validators.required]]
+    });
+  }
+
+  loadDogs(): void {
+    this.dogService.getAllDogs().subscribe({
+      next: (dogs) => {
+        this.dogs = dogs;
+        this.filteredDogs = dogs;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error loading dogs:', err);
+        this.errorMessage = 'Failed to load dogs';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  applyFilters(): void {
+    this.filteredDogs = this.dogs.filter(dog => {
+      const matchesSearch = !this.searchTerm || 
+        dog.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        dog.breed.toLowerCase().includes(this.searchTerm.toLowerCase());
+      
+      const matchesStatus = !this.filterStatus || dog.status === this.filterStatus;
+
+      return matchesSearch && matchesStatus;
+    });
+  }
+
+  openAddModal(): void {
+    this.isEditMode = false;
+    this.selectedDog = null;
+    this.dogForm.reset({
+      age: 1,
+      size: 'MEDIUM',
+      gender: 'Male',
+      vaccinated: true,
+      spayedNeutered: true,
+      status: 'AVAILABLE'
+    });
+    this.showModal = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  openEditModal(dog: Dog): void {
+    this.isEditMode = true;
+    this.selectedDog = dog;
+    this.dogForm.patchValue(dog);
+    this.showModal = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    this.dogForm.reset();
+    this.successMessage = '';
+    this.errorMessage = '';
+    document.body.style.overflow = 'auto';
+  }
+
+  submitForm(): void {
+    if (this.dogForm.invalid) return;
+
+    const dogData = this.dogForm.value;
+
+    if (this.isEditMode && this.selectedDog) {
+      // Update existing dog
+      this.dogService.updateDog(this.selectedDog.dogId, dogData).subscribe({
+        next: (updatedDog) => {
+          const index = this.dogs.findIndex(d => d.dogId === updatedDog.dogId);
+          if (index !== -1) {
+            this.dogs[index] = updatedDog;
+          }
+          this.applyFilters();
+          this.successMessage = 'Dog updated successfully!';
+          setTimeout(() => this.closeModal(), 1500);
+        },
+        error: (err) => {
+          console.error('Error updating dog:', err);
+          this.errorMessage = 'Failed to update dog';
+        }
+      });
+    } else {
+      // Create new dog
+      this.dogService.createDog(dogData).subscribe({
+        next: (newDog) => {
+          this.dogs.unshift(newDog);
+          this.applyFilters();
+          this.successMessage = 'Dog added successfully!';
+          setTimeout(() => this.closeModal(), 1500);
+        },
+        error: (err) => {
+          console.error('Error creating dog:', err);
+          this.errorMessage = 'Failed to add dog';
+        }
+      });
+    }
+  }
+
+  confirmDelete(dog: Dog): void {
+    this.dogToDelete = dog;
+    this.showDeleteConfirm = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  cancelDelete(): void {
+    this.dogToDelete = null;
+    this.showDeleteConfirm = false;
+    document.body.style.overflow = 'auto';
+  }
+
+  deleteDog(): void {
+    if (!this.dogToDelete) return;
+
+    this.dogService.deleteDog(this.dogToDelete.dogId).subscribe({
+      next: () => {
+        this.dogs = this.dogs.filter(d => d.dogId !== this.dogToDelete!.dogId);
+        this.applyFilters();
+        this.cancelDelete();
+      },
+      error: (err) => {
+        console.error('Error deleting dog:', err);
+        this.errorMessage = 'Failed to delete dog';
+        this.cancelDelete();
+      }
+    });
+  }
+
+  get f() {
+    return this.dogForm.controls;
+  }
+}

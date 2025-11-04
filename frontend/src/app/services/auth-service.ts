@@ -101,14 +101,13 @@ export class AuthService  {
 
 
   //Modifies user profile through the settings form
-  settingsForm(firstName: string, lastName: string, id: number, gender: string, country: string, language: string) {
-
-    return this.http.put(
-      `${this.apiUrl}/update-user`,
-      {firstName, lastName, id, gender, country, language},
-      { headers: this.getHeaders() }
-    );
-  }
+  settingsForm(firstName: string, lastName: string, id: number, gender: string, country: string, language: string, mobileNumber?: string) {
+  return this.http.put(
+    `${this.apiUrl}/update-user`,
+    {firstName, lastName, id, mobileNumber, gender, country, language},
+    { headers: this.getHeaders() }
+  );
+}
 
   //Returns a particular user
   getUser(id: number): Observable<UserModel> {

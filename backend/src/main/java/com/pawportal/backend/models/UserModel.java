@@ -31,6 +31,8 @@ public class UserModel {
     @Column(nullable = false)
     private String lastName;
 
+    private String mobileNumber;
+
     private String gender;
 
     private String country;
@@ -47,5 +49,6 @@ public class UserModel {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<AuditLogModel> auditLogs;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ApplicationFormModel> applications;
 }
-

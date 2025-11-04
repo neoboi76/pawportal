@@ -58,9 +58,6 @@ public class SecurityConfig {
                         //These endpoints don't need any authentication
                         .requestMatchers("/login", "/register", "/reset-password", "/forgot-password", "/logout", "/request-reset", "/request-forgot").permitAll()
                         //Admin endpoints need authentication
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        //Verificaiton endpoints need authentication
-                        .requestMatchers("/api/verification/**").authenticated()
                         .anyRequest().authenticated() //Any other not specified above endpoints need authentication
                 )
                 .sessionManagement(session -> session

@@ -75,7 +75,6 @@ public class AuthService implements IAuthService, UserDetailsService  {
     //Authenticates a user
     @Override
     public LoginResponse login(LoginRequest request) {
-
         UserModel user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found after successful authentication."));
         String token = jwtTokenProvider.generateToken(user.getEmail());
@@ -86,10 +85,11 @@ public class AuthService implements IAuthService, UserDetailsService  {
                 user.getEmail(),
                 user.getFirstName(),
                 user.getLastName(),
+                user.getMobileNumber(),
                 user.getGender(),
                 user.getCountry(),
                 user.getLanguage(),
-                user.getRole().name(), // Include role in response
+                user.getRole().name(),
                 user.getUserId()
         );
     }
@@ -189,19 +189,19 @@ public class AuthService implements IAuthService, UserDetailsService  {
     //Updates user information
     @Override
     public SettingsResponse updateUser(SettingsRequest request) {
-
         UserModel user = userRepository.findById(request.getId())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
+        user.setMobileNumber(request.getMobileNumber());
         user.setGender(request.getGender());
         user.setCountry(request.getCountry());
         user.setLanguage(request.getLanguage());
 
         userRepository.save(user);
 
-        return new SettingsResponse("User information succesfully updated");
+        return new SettingsResponse("User information successfully updated");
     }
 
     //Retrieves a particular user
@@ -214,6 +214,7 @@ public class AuthService implements IAuthService, UserDetailsService  {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getUserId(),
+                user.getMobileNumber(),
                 user.getGender(),
                 user.getCountry(),
                 user.getLanguage()
