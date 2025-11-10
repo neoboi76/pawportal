@@ -119,7 +119,7 @@ Before you begin, ensure you have the following installed:
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/pawportal.git
+git clone https://github.com/neoboi6/pawportal.git
 
 # Navigate to project directory
 cd pawportal
@@ -326,7 +326,7 @@ Docker provides a containerized environment that ensures consistency across diff
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/pawportal.git
+git clone https://github.com/neoboi76/pawportal.git
 cd pawportal
 ```
 
@@ -640,7 +640,7 @@ services:
       retries: 5
 
   backend:
-    image: ghcr.io/YOUR_USERNAME/pawportal-backend:latest
+    image: ghcr.io/neoboi76/pawportal-backend:latest
     container_name: pawportal-backend
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/pawportal
@@ -664,7 +664,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    image: ghcr.io/YOUR_USERNAME/pawportal-frontend:latest
+    image: ghcr.io/neoboi76/pawportal-frontend:latest
     container_name: pawportal-frontend
     ports:
       - "4200:80"
@@ -779,9 +779,8 @@ The application uses role-based authentication. Admin users have access to addit
 
 For detailed project information, please refer to:
 
-- **[GitHub Repository](https://github.com/YOUR_USERNAME/pawportal)**
+- **[GitHub Repository](https://github.com/neoboi76/pawportal)**
 - **[Live Demo](DEMO_LINK)** (if available)
-- **[API Documentation](API_DOCS_LINK)** (if available)
 
 ---
 
@@ -807,7 +806,7 @@ For detailed project information, please refer to:
 
 We would like to express our gratitude to:
 
-- **Mapúa University Faculty** - For guidance and support throughout the project development
+- **Prof. Antonette Gabriel** - For guidance and support throughout the project development
 - **Valenzuela City Veterinary Office** - For the project concept and partnership opportunity
 - **Spring Boot Community** - For excellent documentation and support
 - **Angular Team** - For the robust frontend framework
@@ -831,19 +830,15 @@ Special thanks to the open-source projects that made this possible:
 For questions, suggestions, or collaboration opportunities:
 
 - **Email:** pawportal.business@outlook.com
-- **GitHub Issues:** [Create an issue](https://github.com/YOUR_USERNAME/pawportal/issues)
+- **GitHub Issues:** [Create an issue](https://github.com/neoboi76/pawportal/issues)
 
 ---
 
 <p align="center">
   <em>Connecting rescued dogs with loving families, one adoption at a time.</em><br><br>
-  <strong>Made with ❤️ by Group 6</strong>
+  <strong>Made by Group 6</strong>
 </p>
 
----
 
-## ⭐ Star History
 
-If you find this project useful, please consider giving it a star! ⭐
 
-[![Star History Chart](https://api.star-history.com/svg?repos=YOUR_USERNAME/pawportal&type=Date)](https://star-history.com/#YOUR_USERNAME/pawportal&Date)
