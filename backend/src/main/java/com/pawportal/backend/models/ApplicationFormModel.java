@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
  * of the application forms
  */
 
-
 @Entity
 @Table(name = "application_forms")
 @Data
@@ -78,6 +77,7 @@ public class ApplicationFormModel {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String experience;
 
+    //Either APPROVED, PENDING, REJECTED, or COMPLETED
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ApplicationStatus status = ApplicationStatus.PENDING;

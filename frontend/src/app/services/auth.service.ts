@@ -6,6 +6,19 @@ import { TokenStorageService } from './token-storage.service';
 import { Observable, tap } from 'rxjs';
 import { UserModel } from '../models/user.model';
 
+/**
+ * Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal
+ */
+
+/**
+ * Service class for authentication operations
+ */
+
 @Injectable({
   providedIn: 'root'
 })

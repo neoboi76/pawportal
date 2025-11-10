@@ -4,6 +4,7 @@ import com.pawportal.backend.models.ApplicationFormModel;
 import com.pawportal.backend.models.DogModel;
 import com.pawportal.backend.models.UserModel;
 import com.pawportal.backend.models.enums.ApplicationStatus;
+import com.pawportal.backend.models.enums.DogStatus;
 import com.pawportal.backend.models.requests.ApplicationFormRequest;
 import com.pawportal.backend.models.responses.ApplicationFormResponse;
 import com.pawportal.backend.repositories.ApplicationFormRepository;
@@ -17,6 +18,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/** Developed by Group 6:
+ * Kenji Mark Alan Arceo
+ * Carl Norbi Felonia
+ * Ryonan Owen Ferrer
+ * Dino Alfred Timbol
+ * Mike Emil Vocal
+ */
+
+/**
+ * ApplicationFormService class. Deals with application
+ * form related service operations
+ */
+
 @Service
 @RequiredArgsConstructor
 public class ApplicationFormService implements IApplicationFormService {
@@ -25,6 +39,7 @@ public class ApplicationFormService implements IApplicationFormService {
     private final DogRepository dogRepository;
     private final UserRepository userRepository;
 
+    //Creates application
     @Override
     public ApplicationFormResponse createApplication(ApplicationFormRequest application) {
 
@@ -35,6 +50,8 @@ public class ApplicationFormService implements IApplicationFormService {
 
         UserModel user= userRepository.findById(application.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        dog.setStatus(DogStatus.PENDING);
 
         request.setDog(dog);
         request.setUser(user);
@@ -55,6 +72,7 @@ public class ApplicationFormService implements IApplicationFormService {
         return response;
     }
 
+    //Retrieves all applications
     public List<ApplicationFormResponse> getAllApplications() {
         return applicationFormRepository.findAll()
                 .stream()
@@ -62,12 +80,14 @@ public class ApplicationFormService implements IApplicationFormService {
                 .collect(Collectors.toList());
     }
 
+    //Retrieves application by id
     @Override
     public Optional<ApplicationFormResponse> getApplicationById(Long id) {
         return applicationFormRepository.findById(id)
                 .map(this::convertToDto);
     }
 
+    //Retrieves all applications of a particular user
     @Override
     public List<ApplicationFormResponse> getApplicationsByUserId(Long userId) {
         return applicationFormRepository.findByUserUserId(userId)
@@ -76,6 +96,7 @@ public class ApplicationFormService implements IApplicationFormService {
                 .collect(Collectors.toList());
     }
 
+    //Updates application status
     @Override
     public ApplicationFormResponse updateApplicationStatus(Long id, String statusStr) {
         ApplicationFormModel application = applicationFormRepository.findById(id)
@@ -88,6 +109,7 @@ public class ApplicationFormService implements IApplicationFormService {
         return convertToDto(saved);
     }
 
+    //Convert's response to a proper DTO response object
     @Override
     public ApplicationFormResponse convertToDto(ApplicationFormModel model) {
         if (model == null) return null;

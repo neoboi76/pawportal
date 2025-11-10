@@ -5,6 +5,12 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
 @Component({
   selector: 'app-navbar',
   standalone: true,

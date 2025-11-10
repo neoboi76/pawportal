@@ -20,18 +20,18 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
-/*
-    Developed by Group 6:
-        Kenji Mark Alan Arceo
-        Carl Norbi Felonia
-        Ryonan Owen Ferrer
-        Dino Alfred Timbol
-        Mike Emil Vocal
-
+/** Developed by Group 6:
+ * Kenji Mark Alan Arceo
+ * Carl Norbi Felonia
+ * Ryonan Owen Ferrer
+ * Dino Alfred Timbol
+ * Mike Emil Vocal
  */
 
-//auth service Contains business logic
-//for audit log user operations
+/**
+ * AuthService class. Deals with authentication and authorization
+ * related service operations (admin and user).
+ */
 
 @Service
 @RequiredArgsConstructor

@@ -12,12 +12,25 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** Developed by Group 6:
+ * Kenji Mark Alan Arceo
+ * Carl Norbi Felonia
+ * Ryonan Owen Ferrer
+ * Dino Alfred Timbol
+ * Mike Emil Vocal
+ */
+
+/**
+ * UserService class. Deals with user related operations.
+ */
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
 
+    //Retrieves all users
     @Override
     public List<UserResponse> getAllUsers() {
         return userRepository.findAll().stream()
@@ -25,6 +38,7 @@ public class UserService implements IUserService {
                 .collect(Collectors.toList());
     }
 
+    //Retrieves a particular user through id
     @Override
     public UserResponse getUserById(Long id) {
         UserModel user = userRepository.findById(id)
@@ -32,6 +46,7 @@ public class UserService implements IUserService {
         return convertToUserResponse(user);
     }
 
+    //Suspends a user (done by a admin)
     @Override
     @Transactional
     public UserResponse suspendUser(Long id) {
@@ -42,6 +57,7 @@ public class UserService implements IUserService {
         return convertToUserResponse(savedUser);
     }
 
+    //Activates (unsuspends) a user (done by a admin)
     @Override
     @Transactional
     public UserResponse activateUser(Long id) {
@@ -52,6 +68,7 @@ public class UserService implements IUserService {
         return convertToUserResponse(savedUser);
     }
 
+    //Deletes a user (done by a admin)
     @Override
     @Transactional
     public void deleteUser(Long id) {
@@ -63,6 +80,7 @@ public class UserService implements IUserService {
         userRepository.deleteById(id);
     }
 
+    //Promotes (from user to admin) a user (done by a admin)
     @Override
     @Transactional
     public UserResponse promoteUser(Long id) {
@@ -81,6 +99,7 @@ public class UserService implements IUserService {
 
     }
 
+    //Converts response to a proper DTO response object
     private UserResponse convertToUserResponse(UserModel user) {
         UserResponse response = new UserResponse();
         response.setUserId(user.getUserId());

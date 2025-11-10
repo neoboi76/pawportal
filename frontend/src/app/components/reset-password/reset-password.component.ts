@@ -5,11 +5,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NgClass } from '@angular/common';
 
-/* 
-
- */
-
-//Service class that deals with resetting password operations (from the settings page)
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
 
 @Component({
   selector: 'app-reset-password',

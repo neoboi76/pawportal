@@ -5,7 +5,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 
 
-//Class that deals with forgot password operations (from the login page)
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
 @Component({
   selector: 'app-forgot-password',
   imports: [FormsModule, RouterLink, ReactiveFormsModule, NgClass],

@@ -1,6 +1,5 @@
 package com.pawportal.backend.controllers;
 
-import com.pawportal.backend.models.UserModel;
 import com.pawportal.backend.models.enums.AuditAction;
 import com.pawportal.backend.models.requests.*;
 import com.pawportal.backend.models.responses.*;

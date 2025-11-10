@@ -8,6 +8,19 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/** Developed by Group 6:
+ * Kenji Mark Alan Arceo
+ * Carl Norbi Felonia
+ * Ryonan Owen Ferrer
+ * Dino Alfred Timbol
+ * Mike Emil Vocal
+ */
+
+/**
+ * Main entity class (table) for the internal Model representation.
+ * of the contact forms
+ */
+
 @Entity
 @Table(name = "contact_forms")
 @Data
@@ -15,6 +28,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ContactFormModel {
 
+    //PK
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contactId;

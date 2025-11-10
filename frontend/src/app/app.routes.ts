@@ -20,8 +20,19 @@ import { TermsOfServiceComponent } from './components/terms-of-service.component
 import { AdminGuard } from './services/admin-guard.service';
 import { Routes } from '@angular/router';
 
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
+
+//Routes page that configures Website Routing
+
 export const routes: Routes = [
 
+    //Public routes
     { path: '', redirectTo: '/home', pathMatch: 'full'}, 
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent },
@@ -29,14 +40,15 @@ export const routes: Routes = [
     { path: 'forgot-password', component: ForgotPasswordComponent},
     { path: 'home', component: HomeComponent}, 
     { path: 'our-pawls', component: OurPawlsComponent},
-    { path: 'our-pawls/:id', component: DogDetailComponent, canActivate: [AuthGuard]},
+    { path: 'our-pawls/:id', component: DogDetailComponent, canActivate: [AuthGuard]},//User routes ((user must be logged in)
     { path: 'about', component: AboutComponent},
     { path: 'contact', component: ContactComponent},
-    { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+    { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},//User routes ((user must be logged in)
     { path: 'privacy-policy', component: PrivacyPolicyComponent},
     { path: 'terms-of-service', component: TermsOfServiceComponent},
     
-    { 
+    {
+        //Admin routes (user must be logged in AND be an admin)
         path: 'admin', 
         canActivate: [AdminGuard],
         children: [
@@ -49,5 +61,6 @@ export const routes: Routes = [
         ]
     },
     
+    //Default is go to home
     { path: '**', redirectTo: '/home' }
 ];

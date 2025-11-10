@@ -7,20 +7,21 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-/*
-    Developed by Group 6:
-        Kenji Mark Alan Arceo
-        Carl Norbi Felonia
-        Ryonan Owen Ferrer
-        Dino Alfred Timbol
-        Mike Emil Vocal
-
+/** Developed by Group 6:
+ * Kenji Mark Alan Arceo
+ * Carl Norbi Felonia
+ * Ryonan Owen Ferrer
+ * Dino Alfred Timbol
+ * Mike Emil Vocal
  */
 
-//Password reset token model class (entity)
+/**
+ * Main entity class (table) for the internal Model representation.
+ * of the password reset token process
+ */
 
 @Entity
-@Table(name = "password_reset_tokens")//table name in db is password_reset_tokens
+@Table(name = "password_reset_tokens")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

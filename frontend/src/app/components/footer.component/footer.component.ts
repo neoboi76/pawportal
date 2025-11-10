@@ -3,6 +3,12 @@ import { RouterLink } from '@angular/router';
 import { TokenStorageService } from '../../services/token-storage.service';
 import { Subscription } from 'rxjs';
 
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
 @Component({
   selector: 'app-footer',
   standalone: true,

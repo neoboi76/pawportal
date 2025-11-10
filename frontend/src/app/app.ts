@@ -5,6 +5,14 @@ import { filter } from 'rxjs/operators';
 import { NavbarComponent } from './components/navbar.component/navbar.component';
 import { FooterComponent } from './components/footer.component/footer.component';
 
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
+//typescript class for the app root
 @Component({
     selector: 'app-root',
     imports: [RouterOutlet, CommonModule, NavbarComponent, FooterComponent],
@@ -21,6 +29,7 @@ export class App implements OnInit {
         this.viewportScroller.setOffset([0, 0]);
     }
 
+    //Configures scrolling to top when entering a new page
     ngOnInit() {
         this.router.events
             .pipe(filter((e: Event): e is NavigationStart => e instanceof NavigationStart))

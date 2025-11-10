@@ -3,6 +3,19 @@ import { AuthService } from './auth.service';
 import { TokenStorageService } from './token-storage.service';
 import { Router } from '@angular/router';
 
+/**
+ * Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal
+ */
+
+/**
+ * Service class for auth guard operations (prohibits non-logged users from accessing a page)
+ */
+
 @Injectable({
   providedIn: 'root'
 })

@@ -2,6 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminApplicationsComponent } from './admin-applications.component';
 
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
 describe('AdminApplicationsComponent', () => {
   let component: AdminApplicationsComponent;
   let fixture: ComponentFixture<AdminApplicationsComponent>;

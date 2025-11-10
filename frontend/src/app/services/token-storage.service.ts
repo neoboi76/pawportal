@@ -5,6 +5,20 @@ import { BehaviorSubject, Observable } from 'rxjs';
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 
+/**
+ * Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal
+ */
+
+/**
+ * Service class for token storage operations
+ * (i.e., saving and retrieving JWT tokens and users)
+ */
+
 @Injectable({
   providedIn: 'root'
 })

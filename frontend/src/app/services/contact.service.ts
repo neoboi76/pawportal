@@ -4,6 +4,19 @@ import { Observable } from 'rxjs';
 import { ContactForm } from '../models/contact.model';
 import { TokenStorageService } from './token-storage.service';
 
+/**
+ * Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal
+ */
+
+/**
+ * Service class for contact form operations
+ */
+
 @Injectable({
   providedIn: 'root'
 })

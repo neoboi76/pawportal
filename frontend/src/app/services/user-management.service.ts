@@ -4,6 +4,18 @@ import { Observable } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
 import { UserResponse } from '../models/admin-user-response.model';
 
+/**
+ * Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal
+ */
+
+/**
+ * Service class for user-related operations (mostly admin)
+ */
 @Injectable({
     providedIn: 'root'
 })

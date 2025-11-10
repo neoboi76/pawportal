@@ -9,6 +9,19 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/** Developed by Group 6:
+ * Kenji Mark Alan Arceo
+ * Carl Norbi Felonia
+ * Ryonan Owen Ferrer
+ * Dino Alfred Timbol
+ * Mike Emil Vocal
+ */
+
+/**
+ * Main entity class (table) for the internal Model representation.
+ * of the dogs
+ */
+
 @Entity
 @Table(name = "dogs")
 @Data
@@ -16,6 +29,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class DogModel {
 
+    //PK
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dogId;
@@ -30,11 +44,13 @@ public class DogModel {
 
     private Integer age;
 
+    //Sizes are SMALL, MEDIUM, LARGE, and EXTRA_LARGE
     @Enumerated(EnumType.STRING)
     private DogSize size;
 
     private String gender;
 
+    //Stores web url for the image
     @Column(columnDefinition = "TEXT")
     private String imageUrl;
 
@@ -45,6 +61,7 @@ public class DogModel {
 
     private Boolean spayedNeutered = false;
 
+    //Statuses are AVAILABLE, ADOPTED, or PENDING
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private DogStatus status = DogStatus.AVAILABLE;

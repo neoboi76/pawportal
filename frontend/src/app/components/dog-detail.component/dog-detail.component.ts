@@ -9,6 +9,13 @@ import { Dog } from '../../models/dog.model';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
 @Component({
   selector: 'app-dog-detail',
   standalone: true,

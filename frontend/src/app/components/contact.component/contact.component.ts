@@ -6,6 +6,13 @@ import { TokenStorageService } from '../../services/token-storage.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
 @Component({
   selector: 'app-contact',
   standalone: true,

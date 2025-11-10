@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
  * DTO (Data Transfer Object) response class for logout response.
  */
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

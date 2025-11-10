@@ -8,6 +8,19 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/** Developed by Group 6:
+ * Kenji Mark Alan Arceo
+ * Carl Norbi Felonia
+ * Ryonan Owen Ferrer
+ * Dino Alfred Timbol
+ * Mike Emil Vocal
+ */
+
+/**
+ * Audit log repository for database operations related to the
+ * audit logs
+ */
+
 @Repository
 public interface AuditLogRepository extends JpaRepository<AuditLogModel, Long> {
 

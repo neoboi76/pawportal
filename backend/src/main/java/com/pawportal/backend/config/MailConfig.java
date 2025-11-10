@@ -8,7 +8,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
-
 /** Developed by Group 6:
  * Kenji Mark Alan Arceo
  * Carl Norbi Felonia
@@ -26,8 +25,13 @@ import java.util.Properties;
 @Configuration
 public class MailConfig {
 
+    //Email sender. Environment variable. Typically stored
+    //in the applications.properties file
     @Value("${spring.mail.username}")
     private String username;
+
+    //App password for the email. Environment variable. Typically stored
+    //in the applications.properties file
     @Value("${spring.mail.password}")
     private String password;
 

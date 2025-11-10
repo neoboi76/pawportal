@@ -6,13 +6,17 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-/*
-    Developed by Group 6:
-        Kenji Mark Alan Arceo
-        Carl Norbi Felonia
-        Ryonan Owen Ferrer
-        Dino Alfred Timbol
-        Mike Emil Vocal
+/** Developed by Group 6:
+ * Kenji Mark Alan Arceo
+ * Carl Norbi Felonia
+ * Ryonan Owen Ferrer
+ * Dino Alfred Timbol
+ * Mike Emil Vocal
+ */
+
+/**
+ * ForgotService class. Deals with sending email links
+ * for the password reset page.
  */
 
 @Service
@@ -21,6 +25,7 @@ public class ForgotService {
 
     private final JavaMailSender mailSender;
 
+    //Sent's the reset password link to the user email
     public void sendResetPasswordEmail(String toEmail, String token) {
         try {
             String resetLink = "http://localhost:4200/forgot-password?token=" + token;
@@ -40,6 +45,7 @@ public class ForgotService {
         }
     }
 
+    //Builds the email template design
     private String generateEmailBody(String resetLink) {
         return """
                 <!DOCTYPE html>

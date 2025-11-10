@@ -4,6 +4,18 @@ import { Observable } from 'rxjs';
 import { Dog } from '../models/dog.model';
 import { TokenStorageService } from './token-storage.service';
 
+/**
+ * Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal
+ */
+
+/**
+ * Service class for dog operations
+ */
 @Injectable({
   providedIn: 'root'
 })

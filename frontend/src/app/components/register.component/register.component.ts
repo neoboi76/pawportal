@@ -6,6 +6,13 @@ import { RegisterModel } from '../../models/register.model';
 import { TokenStorageService } from '../../services/token-storage.service';
 import { NgClass } from '@angular/common';
 
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
 @Component({
   selector: 'app-register',
   standalone: true,

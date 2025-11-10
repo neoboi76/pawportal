@@ -2,6 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TermsOfServiceComponent } from './terms-of-service.component';
 
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
 describe('TermsOfServiceComponent', () => {
   let component: TermsOfServiceComponent;
   let fixture: ComponentFixture<TermsOfServiceComponent>;

@@ -1,3 +1,13 @@
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
+//Model class for application forms 
+
+
 export interface ApplicationForm {
   applicationId?: number;
   dogId?: number;

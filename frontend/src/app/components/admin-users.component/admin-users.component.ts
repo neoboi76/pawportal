@@ -4,6 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { UserManagementService } from '../../services/user-management.service';
 import { User } from '../../models/admin-user.model';
 
+
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
 interface UserWithDropdown extends User {
   showDropdown: boolean;
   dropdownPosition?: { top: number; left: number };

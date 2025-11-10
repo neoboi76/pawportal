@@ -4,6 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { AuditLogService } from '../../services/audit-log.service';
 import { AuditLog } from '../../models/audit-log.model';
 
+/* Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal */ 
+
 @Component({
     selector: 'app-admin-audit-logs',
     standalone: true,

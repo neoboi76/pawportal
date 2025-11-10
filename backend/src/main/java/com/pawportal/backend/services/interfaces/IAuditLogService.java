@@ -7,6 +7,19 @@ import com.pawportal.backend.models.responses.AuditLogResponse;
 
 import java.util.List;
 
+/** Developed by Group 6:
+ * Kenji Mark Alan Arceo
+ * Carl Norbi Felonia
+ * Ryonan Owen Ferrer
+ * Dino Alfred Timbol
+ * Mike Emil Vocal
+ */
+
+/**
+ * Interface class for the AuditLogService. Promotes Dependency Injection
+ * and loosely coupled relationships.
+ */
+
 public interface IAuditLogService {
 
     void logAction(UserModel user, AuditAction action, String ipAddress, String userAgent, String details);

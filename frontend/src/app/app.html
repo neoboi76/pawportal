@@ -1,9 +1,21 @@
+
+<!--  Developed by Group 6:
+    Kenji Mark Alan Arceo
+    Carl Norbi Felonia
+    Ryonan Owen Ferrer
+    Dino Alfred Timbol
+    Mike Emil Vocal
+  -->
+
+  <!-- Shows navbar if page is not a authentication page -->
 @if (showNavbarFooter) {
   <app-navbar></app-navbar>
 }
 
+<!-- Main router entry for the body of each page (hence, "Single Page Application") -->
 <router-outlet></router-outlet>
 
+<!-- Shows footer if page is not a authentication page -->
 @if (showNavbarFooter) {
   <app-footer></app-footer>
 }

@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
  * DTO (Data Transfer Object) response class for register response.
  */
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

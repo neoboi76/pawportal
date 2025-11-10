@@ -10,32 +10,49 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/** Developed by Group 6:
+ * Kenji Mark Alan Arceo
+ * Carl Norbi Felonia
+ * Ryonan Owen Ferrer
+ * Dino Alfred Timbol
+ * Mike Emil Vocal
+ */
+
+/**
+ * DogService class. Deals with dog related service operations
+ */
+
 @Service
 @RequiredArgsConstructor
 public class DogService implements IDogService {
 
     private final DogRepository dogRepository;
 
+    //Retrieves all dogs
     @Override
     public List<DogModel> getAllDogs() {
         return dogRepository.findAll();
     }
 
+    //Retrieves a particular dog
     @Override
     public Optional<DogModel> getDogById(Long id) {
         return dogRepository.findById(id);
     }
 
+    //Retrieves dogs according to status (used for filtering)
     @Override
     public List<DogModel> getDogsByStatus(DogStatus status) {
         return dogRepository.findByStatus(status);
     }
 
+    //Creates a dog
     @Override
     public DogModel createDog(DogModel dog) {
         return dogRepository.save(dog);
     }
 
+    //Updates dog information
     @Override
     public DogModel updateDog(Long id, DogModel dogDetails) {
         DogModel dog = dogRepository.findById(id)
@@ -56,6 +73,7 @@ public class DogService implements IDogService {
         return dogRepository.save(dog);
     }
 
+    //Deletes dog information
     @Override
     public void deleteDog(Long id) {
         dogRepository.deleteById(id);
