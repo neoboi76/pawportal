@@ -20,8 +20,8 @@ A comprehensive web-based dog adoption management system developed for the Valen
   - [Step 2: Database Setup](#step-2-database-setup)
   - [Step 3: Backend Setup](#step-3-backend-setup)
   - [Step 4: Frontend Setup](#step-4-frontend-setup)
-- [Docker Setup](#-docker-setup)
-- [Alternative Docker Setup (Pre-built Images)](#-alternative-docker-setup-pre-built-images)
+- [Docker Setup #1 (Clone Repository)](#-docker-setup-1-clone-repository)
+- [Docker Setup #2 (Pre-built Images)](#-docker-setup-2-pre-built-images)
 - [Testing the Application](#-testing-the-application)
 - [Project Documentation](#-project-documentation)
 - [Team](#-team)
@@ -107,6 +107,7 @@ Before you begin, ensure you have the following installed:
 ### Configuration Requirements
 
 **Gmail App Password** (for email functionality):
+
 - Visit: https://myaccount.google.com/apppasswords
 - Generate an app-specific password
 - Use this instead of your regular Gmail password
@@ -134,6 +135,7 @@ cd pawportal
 1. **Open pgAdmin 4**
 
 2. **Create a new database:**
+
    - Right-click on "Databases" → Create → Database
    - Database name: `pawportal_db`
    - Owner: `postgres` (or your PostgreSQL username)
@@ -229,6 +231,7 @@ spring.mail.properties.mail.smtp.writetimeout=5000
 ```
 
 **Important Notes:**
+
 - Replace `YOUR_POSTGRESQL_PASSWORD` with your actual PostgreSQL password
 - Replace `YOUR_SECRET_KEY_HERE_MINIMUM_256_BITS_LONG_STRING` with a secure random string (at least 32 characters)
 - Replace `YOUR_GMAIL_ADDRESS` and `YOUR_GMAIL_APP_PASSWORD` with your Gmail credentials
@@ -255,6 +258,7 @@ spring.mail.properties.mail.smtp.writetimeout=5000
 ```
 
 **For Windows:**
+
 ```cmd
 mvnw.cmd clean install
 mvnw.cmd spring-boot:run
@@ -263,6 +267,7 @@ mvnw.cmd spring-boot:run
 #### 5. Verify Backend is Running
 
 Open your browser and navigate to:
+
 - http://localhost:8080
 
 You should see a 401 Unauthorized or 403 Forbidden response (this is expected - it means the backend is running).
@@ -285,6 +290,7 @@ npm install
 ```
 
 This will install all required packages including:
+
 - Angular 20.3.0
 - Tailwind CSS 4.1.16
 - Font Awesome
@@ -299,6 +305,7 @@ npm start
 ```
 
 Or explicitly:
+
 ```bash
 ng serve
 ```
@@ -308,15 +315,16 @@ The Angular development server will start on http://localhost:4200
 #### 4. Access the Application
 
 Open your browser and navigate to:
+
 - http://localhost:4200
 
 You should see the PawPortal login/home page.
 
 ---
 
-## 🐳 Docker Setup
+## 🐳 Docker Setup #1 (Clone Repository)
 
-Docker provides a containerized environment that ensures consistency across different machines.
+This setup is for users who want to build and run the application using Docker after cloning the repository. Docker Compose will build the images from source and manage all services.
 
 ### Prerequisites
 
@@ -330,190 +338,82 @@ git clone https://github.com/neoboi76/pawportal.git
 cd pawportal
 ```
 
-### Step 2: Create Environment File (Backend)
+### Step 2: Configure Environment Variables
 
-Create `application.properties` in the `backend/src/main/resources/` directory:
+A sample environment file is included in the repository. Copy and edit it:
 
 ```bash
 # For Windows
-type nul > backend\src\main\resources\application.properties
+copy .env.sample .env
 
 # For Mac/Linux
-touch backend/src/main/resources/application.properties
+cp .env.sample .env
 ```
 
-Add the following content:
+Edit the `.env` file and replace the placeholder values:
 
-```properties
+```env
 # =========================================================
 # = SERVER CONFIGURATION
 # =========================================================
-server.port=8080
+SERVER_PORT=8080
 
 # =========================================================
 # = DATABASE CONFIGURATION (PostgreSQL)
 # =========================================================
-spring.datasource.url=jdbc:postgresql://database:5432/pawportal
-spring.datasource.username=pawportal_user
-spring.datasource.password=pawportal_password
-spring.datasource.driver-class-name=org.postgresql.Driver
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/pawportal_db
+SPRING_DATASOURCE_USERNAME=pawportal_user
+SPRING_DATASOURCE_PASSWORD=pawportal_password
+SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
 
 # =========================================================
 # = JPA / HIBERNATE CONFIGURATION
 # =========================================================
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+SPRING_JPA_HIBERNATE_DDL_AUTO=update
+SPRING_JPA_SHOW_SQL=true
+SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true
+SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
 
 # =========================================================
 # = JWT CONFIGURATION
 # =========================================================
-jwt.secret=YOUR_SECRET_KEY_HERE_MINIMUM_256_BITS_LONG_STRING
-jwt.expiration=86400000
+JWT_SECRET=your_jwt_secret_here_minimum_256_bits
+JWT_EXPIRATION=86400000
+JWT_REFRESH_EXPIRATION=604800000
+
+# =========================================================
+# = LOGGING
+# =========================================================
+LOGGING_LEVEL_ORG_HIBERNATE_SQL=DEBUG
+LOGGING_LEVEL_ORG_HIBERNATE_TYPE_DESCRIPTOR_SQL_BASICBINDER=TRACE
 
 # =========================================================
 # = EMAIL CONFIGURATION
 # =========================================================
-spring.mail.host=smtp.gmail.com
-spring.mail.port=587
-spring.mail.username=YOUR_GMAIL_ADDRESS
-spring.mail.password=YOUR_GMAIL_APP_PASSWORD
-spring.mail.properties.mail.smtp.auth=true
-spring.mail.properties.mail.smtp.starttls.enable=true
-spring.mail.properties.mail.smtp.starttls.required=true
-spring.mail.properties.mail.smtp.connectiontimeout=5000
-spring.mail.properties.mail.smtp.timeout=5000
-spring.mail.properties.mail.smtp.writetimeout=5000
+SPRING_MAIL_USERNAME=your_email_here@gmail.com
+SPRING_MAIL_PASSWORD=your_gmail_app_password_here
+SPRING_MAIL_PORT=587
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_REQUIRED=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_CONNECTIONTIMEOUT=5000
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_TIMEOUT=5000
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_WRITETIMEOUT=5000
 ```
 
-**⚠️ Important:** Replace placeholder values with your actual credentials.
+**⚠️ Important:** Replace all placeholder values with your actual credentials:
 
-### Step 3: Create Dockerfiles
+- `JWT_SECRET`: A secure random string (at least 32 characters)
+- `SPRING_MAIL_USERNAME`: Your Gmail address
+- `SPRING_MAIL_PASSWORD`: Your Gmail app password (not your regular password)
 
-#### Backend Dockerfile
+### Step 3: Run with Docker Compose
 
-Create `backend/Dockerfile`:
+The `docker-compose.yml` file is already included in the repository and configured to:
 
-```dockerfile
-FROM maven:3.9.11-eclipse-temurin-17 AS build
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
-
-FROM eclipse-temurin:17-jre-alpine
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
-```
-
-#### Frontend Dockerfile
-
-Create `frontend/Dockerfile`:
-
-```dockerfile
-FROM node:20-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-```
-
-#### Frontend Nginx Configuration
-
-Create `frontend/nginx.conf`:
-
-```nginx
-server {
-    listen 80;
-    server_name localhost;
-    root /usr/share/nginx/html;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    location /api/ {
-        proxy_pass http://backend:8080/;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-### Step 4: Create Docker Compose File
-
-Create `docker-compose.yml` in the project root:
-
-```yaml
-version: '3.8'
-
-services:
-  database:
-    image: postgres:15-alpine
-    container_name: pawportal-db
-    environment:
-      POSTGRES_DB: pawportal
-      POSTGRES_USER: pawportal_user
-      POSTGRES_PASSWORD: pawportal_password
-    ports:
-      - "5432:5432"
-    volumes:
-      - pawportal_postgres_data:/var/lib/postgresql/data
-    networks:
-      - pawportal-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U pawportal_user -d pawportal"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: pawportal-backend
-    ports:
-      - "8080:8080"
-    depends_on:
-      database:
-        condition: service_healthy
-    networks:
-      - pawportal-network
-    restart: unless-stopped
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: pawportal-frontend
-    ports:
-      - "4200:80"
-    depends_on:
-      - backend
-    networks:
-      - pawportal-network
-    restart: unless-stopped
-
-volumes:
-  pawportal_postgres_data:
-
-networks:
-  pawportal-network:
-    driver: bridge
-```
-
-### Step 5: Run with Docker Compose
+- Build the backend and frontend from source
+- Set up a PostgreSQL database
+- Connect all services together
 
 ```bash
 # Start all services (database, backend, frontend)
@@ -522,17 +422,48 @@ docker-compose up -d
 # View logs
 docker-compose logs -f
 
-# Stop all services
-docker-compose down
+# View logs for a specific service
+docker-compose logs -f backend
+docker-compose logs -f frontend
+docker-compose logs -f database
 ```
 
-### Step 6: Access the Application
+### Step 4: Access the Application
+
+Once all containers are running:
 
 - **Frontend:** http://localhost:4200
 - **Backend API:** http://localhost:8080
 - **Database:** localhost:5432
 
-### Troubleshooting Docker
+### Managing the Application
+
+**Stop the application:**
+
+```bash
+docker-compose down
+```
+
+**Stop and remove all data (including database):**
+
+```bash
+docker-compose down -v
+```
+
+**Rebuild after code changes:**
+
+```bash
+docker-compose up -d --build
+```
+
+**Restart a specific service:**
+
+```bash
+docker-compose restart backend
+docker-compose restart frontend
+```
+
+### Troubleshooting
 
 **If containers fail to start:**
 
@@ -540,13 +471,10 @@ docker-compose down
 # Check container status
 docker-compose ps
 
-# View logs for a specific service
+# View logs for errors
 docker-compose logs backend
 docker-compose logs frontend
 docker-compose logs database
-
-# Restart a specific service
-docker-compose restart backend
 
 # Rebuild and restart
 docker-compose up -d --build
@@ -577,9 +505,9 @@ docker-compose up -d --build
 
 ---
 
-## 🐳 Alternative Docker Setup (Pre-built Images)
+## 🐳 Docker Setup #2 (Pre-built Images)
 
-If you prefer not to clone the entire repository, you can run PawPortal directly using pre-built Docker images from GitHub Container Registry (GHCR).
+This setup is for users who want to run PawPortal quickly without cloning the repository. It uses pre-built Docker images from GitHub Container Registry (GHCR).
 
 ### Prerequisites
 
@@ -599,25 +527,69 @@ mkdir pawportal-docker && cd pawportal-docker
 
 ### Step 2: Create Environment File
 
-Create a `.env` file in your project directory:
+Create a file named `.env` in your project directory with the following content:
 
 ```env
-# JWT Configuration
-JWT_SECRET=YOUR_SECRET_KEY_HERE_MINIMUM_256_BITS_LONG_STRING
+# =========================================================
+# = SERVER CONFIGURATION
+# =========================================================
+SERVER_PORT=8080
 
-# Email Configuration
-EMAIL_USERNAME=YOUR_GMAIL_ADDRESS
-EMAIL_PASSWORD=YOUR_GMAIL_APP_PASSWORD
+# =========================================================
+# = DATABASE CONFIGURATION (PostgreSQL)
+# =========================================================
+SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/pawportal
+SPRING_DATASOURCE_USERNAME=pawportal_user
+SPRING_DATASOURCE_PASSWORD=pawportal_password
+SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+
+# =========================================================
+# = JPA / HIBERNATE CONFIGURATION
+# =========================================================
+SPRING_JPA_HIBERNATE_DDL_AUTO=update
+SPRING_JPA_SHOW_SQL=true
+SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true
+SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+
+# =========================================================
+# = JWT CONFIGURATION
+# =========================================================
+JWT_SECRET=your_jwt_secret_here_minimum_256_bits
+JWT_EXPIRATION=86400000
+JWT_REFRESH_EXPIRATION=604800000
+
+# =========================================================
+# = LOGGING
+# =========================================================
+LOGGING_LEVEL_ORG_HIBERNATE_SQL=DEBUG
+LOGGING_LEVEL_ORG_HIBERNATE_TYPE_DESCRIPTOR_SQL_BASICBINDER=TRACE
+
+# =========================================================
+# = MAIL CONFIGURATION
+# =========================================================
+SPRING_MAIL_USERNAME=your_email_here@gmail.com
+SPRING_MAIL_PASSWORD=your_gmail_app_password_here
+SPRING_MAIL_PORT=587
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_REQUIRED=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_CONNECTIONTIMEOUT=5000
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_TIMEOUT=5000
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_WRITETIMEOUT=5000
 ```
 
-**⚠️ Important:** Replace all placeholder values with your actual credentials.
+**⚠️ Important:** Replace all placeholder values with your actual credentials:
+
+- `JWT_SECRET`: A secure random string (at least 32 characters)
+- `SPRING_MAIL_USERNAME`: Your Gmail address
+- `SPRING_MAIL_PASSWORD`: Your Gmail app password (not your regular password)
 
 ### Step 3: Create Docker Compose File
 
-Create a file named `docker-compose.yml`:
+Create a file named `docker-compose.yml` in the same directory:
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   database:
@@ -642,18 +614,7 @@ services:
   backend:
     image: ghcr.io/neoboi76/pawportal-backend:latest
     container_name: pawportal-backend
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/pawportal
-      SPRING_DATASOURCE_USERNAME: pawportal_user
-      SPRING_DATASOURCE_PASSWORD: pawportal_password
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_EXPIRATION: 86400000
-      SPRING_MAIL_HOST: smtp.gmail.com
-      SPRING_MAIL_PORT: 587
-      SPRING_MAIL_USERNAME: ${EMAIL_USERNAME}
-      SPRING_MAIL_PASSWORD: ${EMAIL_PASSWORD}
-      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: true
-      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: true
+    env_file: .env
     ports:
       - "8080:8080"
     depends_on:
@@ -689,6 +650,7 @@ docker-compose up -d
 ```
 
 This will:
+
 1. Pull the pre-built images from GitHub Container Registry (first time only)
 2. Create and start the database container
 3. Wait for the database to be healthy
@@ -698,6 +660,7 @@ This will:
 ### Step 5: Access the Application
 
 Once all containers are running:
+
 - **Frontend:** http://localhost:4200
 - **Backend API:** http://localhost:8080
 - **Database:** localhost:5432
@@ -705,6 +668,7 @@ Once all containers are running:
 ### Managing the Application
 
 **View logs:**
+
 ```bash
 # All services
 docker-compose logs -f
@@ -716,16 +680,19 @@ docker-compose logs -f database
 ```
 
 **Stop the application:**
+
 ```bash
 docker-compose down
 ```
 
 **Stop and remove all data (including database):**
+
 ```bash
 docker-compose down -v
 ```
 
 **Update to latest images:**
+
 ```bash
 # Pull latest images
 docker-compose pull
@@ -765,6 +732,7 @@ docker-compose up -d
 ### Admin Access
 
 The application uses role-based authentication. Admin users have access to additional features:
+
 - Dog management (add, edit, delete)
 - Application review and approval
 - User management
@@ -780,7 +748,7 @@ The application uses role-based authentication. Admin users have access to addit
 For detailed project information, please refer to:
 
 - **[GitHub Repository](https://github.com/neoboi76/pawportal)**
-- **[Live Demo](DEMO_LINK)** (if available)
+- **[Video Demo](https://drive.google.com/file/d/1coeHhwrSjsdpD4GdpH1G5L3V7Ta48Tuc/view?usp=sharing)**
 
 ---
 
@@ -788,13 +756,13 @@ For detailed project information, please refer to:
 
 **Group 6 - ITS181-2 Project**
 
-| Name                                                                   | Role           | Contributions                                                          |
-| ---------------------------------------------------------------------- | -------------- | ---------------------------------------------------------------------- |
-| **[Kenji Mark Alan Arceo](mailto:kmarceo@mymail.mapua.edu.ph)**      | Developer      | Frontend components, UI/UX design, User interface implementation       |
-| **[Carl Norbi Felonia](mailto:cncfelonia@mymail.mapua.edu.ph)**      | Developer      | Backend services, Business logic, API development                       |
-| **[Ryonan Owen Ferrer](mailto:roferrer@mymail.mapua.edu.ph)**        | Developer      | Database design, Data management, Backend integration                   |
-| **[Dino Alfred Timbol](mailto:dattimbol@mymail.mapua.edu.ph)**       | Lead Developer | System architecture, Authentication, Security implementation            |
-| **[Mike Emil Vocal](mailto:mevocal@mymail.mapua.edu.ph)**            | Developer      | Testing, Documentation, Deployment, Quality assurance                   |
+| Name                                                            | Role           | Contributions                                                    |
+| --------------------------------------------------------------- | -------------- | ---------------------------------------------------------------- |
+| **[Kenji Mark Alan Arceo](mailto:kmarceo@mymail.mapua.edu.ph)** | Developer      | Frontend components, UI/UX design, User interface implementation |
+| **[Carl Norbi Felonia](mailto:cncfelonia@mymail.mapua.edu.ph)** | Developer      | Backend services, Business logic, API development                |
+| **[Ryonan Owen Ferrer](mailto:roferrer@mymail.mapua.edu.ph)**   | Developer      | Database design, Data management, Backend integration            |
+| **[Dino Alfred Timbol](mailto:dattimbol@mymail.mapua.edu.ph)**  | Lead Developer | System architecture, Authentication, Security implementation     |
+| **[Mike Emil Vocal](mailto:mevocal@mymail.mapua.edu.ph)**       | Developer      | Testing, Documentation, Deployment, Quality assurance            |
 
 **Course:** ITS181-2 - Advanced Systems Integration and Architecture 2  
 **Institution:** _Mapúa University - School of Information Technology_  
@@ -838,8 +806,3 @@ For questions, suggestions, or collaboration opportunities:
   <em>Connecting rescued dogs with loving families, one adoption at a time.</em><br><br>
   <strong>Made by Group 6</strong>
 </p>
-
-
-
-
-
