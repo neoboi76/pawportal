@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+
+  database:
+    image: postgres:15-alpine
+    container_name: pawportal-db
+    environment:
+      POSTGRES_DB: pawportal
+      POSTGRES_USER: pawportal_user
+      POSTGRES_PASSWORD: pawportal_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pawportal_postgres_data:/var/lib/postgresql/data
+    networks:
+      - pawportal-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pawportal_user -d pawportal"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pawportal-backend
+    env_file:
+      - .env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/pawportal
+      SPRING_DATASOURCE_USERNAME: pawportal_user
+      SPRING_DATASOURCE_PASSWORD: pawportal_password
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+    ports:
+      - "8080:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - pawportal-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: pawportal-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - pawportal-network
+    restart: unless-stopped
+
+volumes:
+  pawportal_postgres_data:
+
+networks:
+  pawportal-network:
+    driver: bridge

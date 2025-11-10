@@ -1,0 +1,46 @@
+# =========================================================
+# = SERVER CONFIGURATION
+# =========================================================
+SERVER_PORT=8080
+
+# =========================================================
+# = DATABASE CONFIGURATION (PostgreSQL)
+# =========================================================
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/pawportal_db
+SPRING_DATASOURCE_USERNAME=pawportal_user
+SPRING_DATASOURCE_PASSWORD=pawportal_password
+SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+
+# =========================================================
+# = JPA / HIBERNATE CONFIGURATION
+# =========================================================
+SPRING_JPA_HIBERNATE_DDL_AUTO=update
+SPRING_JPA_SHOW_SQL=true
+SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true
+SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+
+# =========================================================
+# = JWT CONFIGURATION
+# =========================================================
+JWT_SECRET=your_jwt_secret_here
+JWT_EXPIRATION=86400000
+JWT_REFRESH_EXPIRATION=604800000
+
+# =========================================================
+# = LOGGING
+# =========================================================
+LOGGING_LEVEL_ORG_HIBERNATE_SQL=DEBUG
+LOGGING_LEVEL_ORG_HIBERNATE_TYPE_DESCRIPTOR_SQL_BASICBINDER=TRACE
+
+# =========================================================
+# = EMAIL CONFIGURATION
+# =========================================================
+SPRING_MAIL_USERNAME=your_email_here
+SPRING_MAIL_PASSWORD=your_email_password_here
+SPRING_MAIL_PORT=587
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_REQUIRED=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_CONNECTIONTIMEOUT=5000
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_TIMEOUT=5000
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_WRITETIMEOUT=5000
