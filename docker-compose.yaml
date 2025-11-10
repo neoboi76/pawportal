@@ -28,7 +28,6 @@ services:
     container_name: pawportal-backend
     env_file:
       - .env
-    environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/pawportal
       SPRING_DATASOURCE_USERNAME: pawportal_user
       SPRING_DATASOURCE_PASSWORD: pawportal_password
