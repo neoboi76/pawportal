@@ -119,7 +119,7 @@ Before you begin, ensure you have the following installed:
 
 ```bash
 # Clone the repository
-git clone https://github.com/neoboi6/pawportal.git
+git clone https://github.com/neoboi76/pawportal.git
 
 # Navigate to project directory
 cd pawportal
@@ -838,6 +838,7 @@ For questions, suggestions, or collaboration opportunities:
   <em>Connecting rescued dogs with loving families, one adoption at a time.</em><br><br>
   <strong>Made by Group 6</strong>
 </p>
+
 
 
 
